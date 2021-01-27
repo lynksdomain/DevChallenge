@@ -14,6 +14,11 @@
 		3951295C25C0F825001DD397 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3951295A25C0F825001DD397 /* LaunchScreen.storyboard */; };
 		3951296725C0F825001DD397 /* DevChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3951296625C0F825001DD397 /* DevChallengeTests.swift */; };
 		3951297225C0F825001DD397 /* DevChallengeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3951297125C0F825001DD397 /* DevChallengeUITests.swift */; };
+		3951298925C12509001DD397 /* ProjectsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3951298825C12509001DD397 /* ProjectsViewController.swift */; };
+		3951298E25C1272A001DD397 /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3951298D25C1272A001DD397 /* ProjectsView.swift */; };
+		3951299325C12B8C001DD397 /* ColorGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3951299225C12B8C001DD397 /* ColorGuide.swift */; };
+		395129A125C13468001DD397 /* CreateProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395129A025C13468001DD397 /* CreateProjectCell.swift */; };
+		395129A625C13E3B001DD397 /* PageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395129A525C13E3B001DD397 /* PageHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +52,11 @@
 		3951296D25C0F825001DD397 /* DevChallengeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DevChallengeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3951297125C0F825001DD397 /* DevChallengeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevChallengeUITests.swift; sourceTree = "<group>"; };
 		3951297325C0F825001DD397 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3951298825C12509001DD397 /* ProjectsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewController.swift; sourceTree = "<group>"; };
+		3951298D25C1272A001DD397 /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
+		3951299225C12B8C001DD397 /* ColorGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGuide.swift; sourceTree = "<group>"; };
+		395129A025C13468001DD397 /* CreateProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectCell.swift; sourceTree = "<group>"; };
+		395129A525C13E3B001DD397 /* PageHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +109,11 @@
 			children = (
 				3951294C25C0F824001DD397 /* AppDelegate.swift */,
 				3951294E25C0F824001DD397 /* SceneDelegate.swift */,
+				3951299225C12B8C001DD397 /* ColorGuide.swift */,
+				3951298825C12509001DD397 /* ProjectsViewController.swift */,
+				3951298D25C1272A001DD397 /* ProjectsView.swift */,
+				395129A525C13E3B001DD397 /* PageHeader.swift */,
+				395129A025C13468001DD397 /* CreateProjectCell.swift */,
 				3951295825C0F825001DD397 /* Assets.xcassets */,
 				3951295A25C0F825001DD397 /* LaunchScreen.storyboard */,
 				3951295D25C0F825001DD397 /* Info.plist */,
@@ -254,8 +269,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3951298E25C1272A001DD397 /* ProjectsView.swift in Sources */,
+				395129A625C13E3B001DD397 /* PageHeader.swift in Sources */,
+				3951298925C12509001DD397 /* ProjectsViewController.swift in Sources */,
 				3951294D25C0F824001DD397 /* AppDelegate.swift in Sources */,
 				3951294F25C0F824001DD397 /* SceneDelegate.swift in Sources */,
+				395129A125C13468001DD397 /* CreateProjectCell.swift in Sources */,
+				3951299325C12B8C001DD397 /* ColorGuide.swift in Sources */,
 				3951295725C0F824001DD397 /* DevChallenge.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
