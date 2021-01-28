@@ -63,10 +63,10 @@ class CreateProjectCell: UITableViewCell {
     
     private func addCardViewConstraints() {
         NSLayoutConstraint.activate([
-            cardView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            cardView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
-            cardView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            cardView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8)
+            cardView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            cardView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            cardView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            cardView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])
     }
     

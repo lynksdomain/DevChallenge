@@ -12,7 +12,6 @@ class PageHeader: UIView {
    private lazy var title: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
-        label.text = "Projects"
         label.textAlignment = .center
         return label
     }()
@@ -45,6 +44,11 @@ class PageHeader: UIView {
             title.leadingAnchor.constraint(equalTo: leadingAnchor),
             title.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+    }
+    
+    
+    func setTitleText(title:String) {
+        self.title.text = title
     }
 
 }

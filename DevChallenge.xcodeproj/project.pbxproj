@@ -19,6 +19,9 @@
 		3951299325C12B8C001DD397 /* ColorGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3951299225C12B8C001DD397 /* ColorGuide.swift */; };
 		395129A125C13468001DD397 /* CreateProjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395129A025C13468001DD397 /* CreateProjectCell.swift */; };
 		395129A625C13E3B001DD397 /* PageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395129A525C13E3B001DD397 /* PageHeader.swift */; };
+		395129AB25C1C15F001DD397 /* CreateProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395129AA25C1C15F001DD397 /* CreateProjectViewController.swift */; };
+		395129C025C1C23B001DD397 /* CreateProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395129BF25C1C23B001DD397 /* CreateProjectView.swift */; };
+		395129C825C28FC9001DD397 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395129C725C28FC9001DD397 /* ColorCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +60,9 @@
 		3951299225C12B8C001DD397 /* ColorGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGuide.swift; sourceTree = "<group>"; };
 		395129A025C13468001DD397 /* CreateProjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectCell.swift; sourceTree = "<group>"; };
 		395129A525C13E3B001DD397 /* PageHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageHeader.swift; sourceTree = "<group>"; };
+		395129AA25C1C15F001DD397 /* CreateProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectViewController.swift; sourceTree = "<group>"; };
+		395129BF25C1C23B001DD397 /* CreateProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectView.swift; sourceTree = "<group>"; };
+		395129C725C28FC9001DD397 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,13 +113,12 @@
 		3951294B25C0F824001DD397 /* DevChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				395129B325C1C1DC001DD397 /* Models */,
+				395129AF25C1C199001DD397 /* ProjectsPage */,
+				395129B725C1C1F2001DD397 /* SupportingViews */,
+				395129BB25C1C207001DD397 /* CreateProjectPage */,
 				3951294C25C0F824001DD397 /* AppDelegate.swift */,
 				3951294E25C0F824001DD397 /* SceneDelegate.swift */,
-				3951299225C12B8C001DD397 /* ColorGuide.swift */,
-				3951298825C12509001DD397 /* ProjectsViewController.swift */,
-				3951298D25C1272A001DD397 /* ProjectsView.swift */,
-				395129A525C13E3B001DD397 /* PageHeader.swift */,
-				395129A025C13468001DD397 /* CreateProjectCell.swift */,
 				3951295825C0F825001DD397 /* Assets.xcassets */,
 				3951295A25C0F825001DD397 /* LaunchScreen.storyboard */,
 				3951295D25C0F825001DD397 /* Info.plist */,
@@ -138,6 +143,42 @@
 				3951297325C0F825001DD397 /* Info.plist */,
 			);
 			path = DevChallengeUITests;
+			sourceTree = "<group>";
+		};
+		395129AF25C1C199001DD397 /* ProjectsPage */ = {
+			isa = PBXGroup;
+			children = (
+				3951298825C12509001DD397 /* ProjectsViewController.swift */,
+				3951298D25C1272A001DD397 /* ProjectsView.swift */,
+				395129A025C13468001DD397 /* CreateProjectCell.swift */,
+			);
+			path = ProjectsPage;
+			sourceTree = "<group>";
+		};
+		395129B325C1C1DC001DD397 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3951299225C12B8C001DD397 /* ColorGuide.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		395129B725C1C1F2001DD397 /* SupportingViews */ = {
+			isa = PBXGroup;
+			children = (
+				395129A525C13E3B001DD397 /* PageHeader.swift */,
+			);
+			path = SupportingViews;
+			sourceTree = "<group>";
+		};
+		395129BB25C1C207001DD397 /* CreateProjectPage */ = {
+			isa = PBXGroup;
+			children = (
+				395129AA25C1C15F001DD397 /* CreateProjectViewController.swift */,
+				395129BF25C1C23B001DD397 /* CreateProjectView.swift */,
+				395129C725C28FC9001DD397 /* ColorCell.swift */,
+			);
+			path = CreateProjectPage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,11 +310,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				395129C825C28FC9001DD397 /* ColorCell.swift in Sources */,
+				395129AB25C1C15F001DD397 /* CreateProjectViewController.swift in Sources */,
 				3951298E25C1272A001DD397 /* ProjectsView.swift in Sources */,
 				395129A625C13E3B001DD397 /* PageHeader.swift in Sources */,
 				3951298925C12509001DD397 /* ProjectsViewController.swift in Sources */,
 				3951294D25C0F824001DD397 /* AppDelegate.swift in Sources */,
 				3951294F25C0F824001DD397 /* SceneDelegate.swift in Sources */,
+				395129C025C1C23B001DD397 /* CreateProjectView.swift in Sources */,
 				395129A125C13468001DD397 /* CreateProjectCell.swift in Sources */,
 				3951299325C12B8C001DD397 /* ColorGuide.swift in Sources */,
 				3951295725C0F824001DD397 /* DevChallenge.xcdatamodeld in Sources */,

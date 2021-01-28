@@ -22,7 +22,7 @@ class ProjectsViewController: UIViewController {
 
 extension ProjectsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -32,11 +32,13 @@ extension ProjectsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 160
+        return projectsView.frame.height * 0.2 + 16
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return PageHeader()
+        let header = PageHeader()
+        header.setTitleText(title: "Projects")
+        return header
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -48,6 +50,8 @@ extension ProjectsViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension ProjectsViewController: CreateProjectCellDelegate {
     func addButtonPressed() {
-        print("pressed")
+        let createViewController = CreateProjectViewController(type: .create)
+        createViewController.modalPresentationStyle = .overFullScreen
+        present(createViewController, animated: true, completion: nil)
     }
 }
