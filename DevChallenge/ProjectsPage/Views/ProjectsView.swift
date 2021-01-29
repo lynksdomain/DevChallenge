@@ -13,6 +13,7 @@ class ProjectsView: UIView {
     private lazy var projectTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(CreateProjectCell.self, forCellReuseIdentifier: "createCell")
+        tableView.register(ProjectCell.self, forCellReuseIdentifier: "projectCell")
         tableView.backgroundColor = ColorGuide.bgWhite
         tableView.separatorStyle = .none
         return tableView
@@ -49,6 +50,10 @@ class ProjectsView: UIView {
             projectTableView.leadingAnchor.constraint(equalTo: leadingAnchor),
             projectTableView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+    }
+    
+    func reload() {
+        projectTableView.reloadData()
     }
 }
 

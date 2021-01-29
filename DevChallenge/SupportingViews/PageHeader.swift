@@ -9,11 +9,20 @@ import UIKit
 
 class PageHeader: UIView {
     
-   private lazy var title: UILabel = {
+    private lazy var title: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 24, weight: .semibold)
         label.textAlignment = .center
         return label
+    }()
+    
+    lazy var dismissButton: UIButton = {
+        let button = UIButton()
+        button.imageView?.contentMode = .scaleAspectFill
+        button.setImage(UIImage(named: "dismiss"), for: .normal)
+        button.contentMode = .scaleAspectFit
+        button.isHidden = true
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -37,6 +46,18 @@ class PageHeader: UIView {
         addSubview(title)
     }
     
+     func setDismissButton() {
+        dismissButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(dismissButton)
+        dismissButton.isHidden = false
+        NSLayoutConstraint.activate([
+            dismissButton.centerYAnchor.constraint(equalTo: title.centerYAnchor),
+            dismissButton.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 16),
+            dismissButton.heightAnchor.constraint(equalToConstant: 25),
+            dismissButton.widthAnchor.constraint(equalToConstant: 25)
+        ])
+    }
+    
     private func titleConstraints() {
         NSLayoutConstraint.activate([
             title.centerYAnchor.constraint(equalTo: centerYAnchor),
@@ -45,6 +66,8 @@ class PageHeader: UIView {
             title.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
+    
+    
     
     
     func setTitleText(title:String) {

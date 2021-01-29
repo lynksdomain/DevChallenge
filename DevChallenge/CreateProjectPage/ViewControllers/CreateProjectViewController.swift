@@ -7,13 +7,23 @@
 
 import UIKit
 
+protocol CreateProjectViewControllerDelegate: AnyObject {
+    func reloadList()
+}
+
 class CreateProjectViewController: UIViewController {
     
     var createProjectView: CreateProjectView?
-
+    var store: ProjectStore!
+    weak var delegate: CreateProjectViewControllerDelegate?
+    
     init(type:CreateProjectViewType) {
         super.init(nibName: nil, bundle: nil)
         createProjectView = CreateProjectView(type: type)
+    }
+    
+    func setInfo(title:String,description:String,date:String,color:UIColor?,header:UIImage?) {
+        createProjectView?.setInfo(title:title,description:description,date:date,color:color,header:header)
     }
     
     required init?(coder: NSCoder) {
@@ -83,46 +93,17 @@ class CreateProjectViewController: UIViewController {
 
 
 
-extension CreateProjectViewController: CreateProjectViewDelegate {
-    
-    func uploadHeaderPressed() {
-        let gallery = UIImagePickerController()
-        gallery.sourceType = .photoLibrary
-        gallery.delegate = self
-        present(gallery, animated: true, completion: nil)
-    }
-    
-    func datePressed() {
-        let dateViewController = DatePickerViewController()
-        dateViewController.delegate = self
-        dateViewController.modalPresentationStyle = .overCurrentContext
-        dateViewController.modalTransitionStyle = .crossDissolve
-        present(dateViewController, animated: true, completion: nil)
-    }
-    
-    func savePressed() {
-        print("save pressed")
-    }
-    
-    
-}
-
 
 extension CreateProjectViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             createProjectView?.updateProjectHeader(image: pickedImage)
             createProjectView?.deselectColors()
-            }
+        }
         dismiss(animated: true, completion: nil)
     }
 }
 
-extension CreateProjectViewController: DatePickerViewControllerDelegate {
-    func setDate(date: Date) {
-        createProjectView?.updateDateButton(date: date)
-    }
-}
 
 
 extension CreateProjectViewController: UITextFieldDelegate {
@@ -184,9 +165,4 @@ extension CreateProjectViewController: UICollectionViewDataSource, UICollectionV
     }
 }
 
-struct ColorPickerValues {
-    private init() {}
-    static let inset: CGFloat = 10
-    static let minLineSpacing: CGFloat = 20
-    static let minInteritemSpacing: CGFloat = 20
-}
+

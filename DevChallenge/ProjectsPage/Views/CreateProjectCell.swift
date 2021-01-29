@@ -25,6 +25,7 @@ class CreateProjectCell: UITableViewCell {
     lazy var cardView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
+        view.layerStyle(borderWidth: 1.0)
         return view
     }()
     
@@ -40,10 +41,7 @@ class CreateProjectCell: UITableViewCell {
         commonInit()
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        styleCardView()
-    }
+    
     
     private func commonInit() {
         backgroundColor = ColorGuide.bgWhite

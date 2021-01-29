@@ -14,7 +14,8 @@ enum CreateProjectViewType {
 protocol CreateProjectViewDelegate: AnyObject {
     func uploadHeaderPressed()
     func datePressed()
-    func savePressed()
+    func dismissPressed()
+    func savePressed(title:String,description:String,header:UIImage?,color:UIColor?,date:Date)
 }
 
 class CreateProjectView: UIView {
@@ -22,6 +23,8 @@ class CreateProjectView: UIView {
     weak var delegate: CreateProjectViewDelegate?
     
     var type: CreateProjectViewType = .create
+    var chosenHeaderColor: UIColor?
+    var chosenDate: Date?
     
     lazy var header: PageHeader = {
         let header = PageHeader()
@@ -38,6 +41,8 @@ class CreateProjectView: UIView {
         imageView.clipsToBounds = true
         return imageView
     }()
+    
+    
     
     lazy var uploadHeaderButton: UIButton = {
        let button = UIButton()
@@ -114,6 +119,8 @@ class CreateProjectView: UIView {
         textView.layerStyle(borderWidth: 1)
         textView.returnKeyType = .done
         textView.showsVerticalScrollIndicator = false
+        textView.sizeToFit()
+        if type == .view { textView.isScrollEnabled = false }
         return textView
     }()
     
@@ -148,6 +155,7 @@ class CreateProjectView: UIView {
     private func commonInit() {
         backgroundColor = ColorGuide.bgWhite
         setUp()
+        if type == .view { viewMode() }
         headerConstraints()
         projectHeaderConstraints()
         uploadInstructionsConstraints()
@@ -164,6 +172,32 @@ class CreateProjectView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         descriptionTextView.setPlaceholder()
+    }
+    
+    func setInfo(title:String,description:String,date:String,color:UIColor?,header:UIImage?) {
+        titleTextField.text = title
+        descriptionTextView.text = description
+        dateButton.setTitle(date, for: .normal)
+        projectHeaderImageView.image = header
+        if let color = color {
+            projectHeaderImageView.backgroundColor = color
+        }
+    }
+    
+    private func viewMode() {
+        titleTextField.isUserInteractionEnabled = false
+        titleTextField.layer.borderWidth = 0.0
+        titleTextField.backgroundColor = .clear
+        descriptionTextView.isUserInteractionEnabled = false
+        descriptionTextView.layer.borderWidth = 0.0
+        descriptionTextView.backgroundColor = .clear
+        dateButton.isUserInteractionEnabled = false
+        saveButton.isHidden = true
+        uploadInstructions.isHidden = true
+        uploadHeaderButton.isHidden = true
+        colorPicker.isHidden = true
+        header.dismissButton.addTarget(self, action: #selector(dismissPressed), for: .touchUpInside)
+        header.setDismissButton()
     }
    
     
@@ -200,6 +234,8 @@ class CreateProjectView: UIView {
             header.heightAnchor.constraint(equalToConstant: 80)
         ])
     }
+    
+    
     
     private func projectHeaderConstraints() {
         NSLayoutConstraint.activate([
@@ -276,8 +312,11 @@ class CreateProjectView: UIView {
             descriptionTextView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
             descriptionTextView.leadingAnchor.constraint(equalTo: projectHeaderImageView.leadingAnchor),
             descriptionTextView.trailingAnchor.constraint(equalTo: projectHeaderImageView.trailingAnchor),
-            descriptionTextView.heightAnchor.constraint(equalToConstant: 50)
         ])
+        
+        if type == .create {
+            descriptionTextView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        }
     }
     
     
@@ -299,97 +338,17 @@ class CreateProjectView: UIView {
         delegate?.datePressed()
     }
     
+    @objc private func dismissPressed() {
+        delegate?.dismissPressed()
+    }
+    
     @objc private func savePressed() {
-        delegate?.savePressed()
+        guard let title = titleTextField.text,
+              let description = descriptionTextView.text,
+              let date = chosenDate else { return }
+        delegate?.savePressed(title: title, description: description, header: projectHeaderImageView.image, color: chosenHeaderColor,date:date)
     }
     
-    func updateDateButton(date:Date) {
-        let calendar = Calendar.current
-        let day = calendar.component(.day, from: date)
-        let numberFormat = NumberFormatter()
-        numberFormat.numberStyle = .ordinal
-        let formattedDay = numberFormat.string(from: NSNumber(value: day))
-        let monthFormat = DateFormatter()
-        monthFormat.dateFormat = "MMM"
-        let month = monthFormat.string(from: date)
-        let timeFormat = DateFormatter()
-        timeFormat.dateFormat = "h:mm a"
-        let time = timeFormat.string(from: date)
-        guard let formatDay = formattedDay else { return }
-        dateButton.setTitle("\(month) \(formatDay), \(time)", for: .normal)
-    }
     
-    func updateProjectHeader(image: UIImage) {
-        projectHeaderImageView.image = image
-    }
-    
-    func deselectColors() {
-        guard let paths = colorPicker.indexPathsForSelectedItems else { return }
-        paths.forEach {
-            colorPicker.cellForItem(at: $0)?.isSelected = false
-        }
-    }
-    
-}
-
-extension CreateProjectView {
-    
-    func setColorPickerDataSource(dataSource:UICollectionViewDataSource) {
-        colorPicker.dataSource = dataSource
-    }
-    
-    func setColorPickerDelegateFlowLayout(delegate:UICollectionViewDelegateFlowLayout) {
-        colorPicker.delegate = delegate
-    }
-    
-    func setProjectHeaderColor(row:Int) {
-        projectHeaderImageView.backgroundColor = ColorGuide.colorPickerColors[row]
-        projectHeaderImageView.image = nil
-    }
-    
-    func setTextDelegates(viewController: UIViewController) {
-        guard let delegate = viewController as? UITextFieldDelegate,
-              let textViewDelegate = viewController as? UITextViewDelegate else { return }
-        titleTextField.delegate = delegate
-        descriptionTextView.delegate = textViewDelegate
-    }
-    
-}
-
-
-extension UITextField {
-    func setPadding() {
-        let lPadding = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.size.height))
-        let rPadding = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.size.height))
-        self.leftView = lPadding
-        self.leftViewMode = .always
-        self.rightView = rPadding
-        self.rightViewMode = .always
-    }
-}
-
-
-extension UIView {
-    func layerStyle(borderWidth: CGFloat) {
-        self.layer.borderWidth = borderWidth
-        self.layer.borderColor = ColorGuide.borderGray.cgColor
-        self.layer.cornerRadius = 10
-        self.layer.cornerCurve = .continuous
-    }
-}
-
-
-class PlacerholderTextView: UITextView {
-    var placeholder = UILabel()
-    
-    func setPlaceholder() {
-        placeholder.text = "Type Here"
-        self.addSubview(placeholder)
-        placeholder.font = UIFont.systemFont(ofSize: 14)
-        placeholder.sizeToFit()
-        placeholder.frame.origin = CGPoint(x: 10, y: (self.font?.pointSize)! / 2 + 3)
-        placeholder.textColor = UIColor.placeholderText
-        placeholder.isHidden = !self.text.isEmpty
-    }
 }
 
