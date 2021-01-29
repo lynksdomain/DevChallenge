@@ -34,6 +34,8 @@ class CreateProjectView: UIView {
         imageView.backgroundColor = .white
         imageView.layerStyle(borderWidth: 1)
         imageView.isUserInteractionEnabled = true
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -91,6 +93,7 @@ class CreateProjectView: UIView {
         textField.layerStyle(borderWidth: 1)
         textField.placeholder = "Type Here"
         textField.backgroundColor = .white
+        textField.returnKeyType = .done
         textField.font = UIFont.systemFont(ofSize: 14)
         textField.setPadding()
         return textField
@@ -103,14 +106,15 @@ class CreateProjectView: UIView {
         return label
     }()
     
-    lazy var descriptionTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Type Here"
-        textField.backgroundColor = .white
-        textField.font = UIFont.systemFont(ofSize: 14)
-        textField.setPadding()
-        textField.layerStyle(borderWidth: 1)
-        return textField
+    lazy var descriptionTextView: PlacerholderTextView = {
+        let textView = PlacerholderTextView()
+        textView.backgroundColor = .white
+        textView.font = UIFont.systemFont(ofSize: 14)
+        textView.textContainerInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 8)
+        textView.layerStyle(borderWidth: 1)
+        textView.returnKeyType = .done
+        textView.showsVerticalScrollIndicator = false
+        return textView
     }()
     
     
@@ -122,6 +126,10 @@ class CreateProjectView: UIView {
         button.setTitleColor(.white, for: .normal)
         button.addTarget(self, action: #selector(savePressed), for: .touchUpInside)
         button.layerStyle(borderWidth: 0)
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOpacity = 0.4
+        button.layer.shadowOffset = CGSize(width: 0, height: 5)
+        button.layer.shadowRadius = 5
         return button
     }()
     
@@ -153,6 +161,10 @@ class CreateProjectView: UIView {
         saveButtonConstraints()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        descriptionTextView.setPlaceholder()
+    }
    
     
     private func setUp() {
@@ -165,7 +177,7 @@ class CreateProjectView: UIView {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionTextField.translatesAutoresizingMaskIntoConstraints = false
+        descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         saveButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(header)
         addSubview(projectHeaderImageView)
@@ -176,7 +188,7 @@ class CreateProjectView: UIView {
         addSubview(titleLabel)
         addSubview(titleTextField)
         addSubview(descriptionLabel)
-        addSubview(descriptionTextField)
+        addSubview(descriptionTextView)
         addSubview(saveButton)
     }
     
@@ -261,10 +273,10 @@ class CreateProjectView: UIView {
     
     private func descriptionTextfieldConstraints() {
         NSLayoutConstraint.activate([
-            descriptionTextField.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
-            descriptionTextField.leadingAnchor.constraint(equalTo: projectHeaderImageView.leadingAnchor),
-            descriptionTextField.trailingAnchor.constraint(equalTo: projectHeaderImageView.trailingAnchor),
-            descriptionTextField.heightAnchor.constraint(equalToConstant: 40)
+            descriptionTextView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
+            descriptionTextView.leadingAnchor.constraint(equalTo: projectHeaderImageView.leadingAnchor),
+            descriptionTextView.trailingAnchor.constraint(equalTo: projectHeaderImageView.trailingAnchor),
+            descriptionTextView.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
@@ -277,15 +289,7 @@ class CreateProjectView: UIView {
             saveButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
-    
 
-    private func styleCards() {
-        dateButton.layerStyle(borderWidth: 1)
-        projectHeaderImageView.layerStyle(borderWidth: 1)
-        titleTextField.layerStyle(borderWidth: 1)
-        descriptionTextField.layerStyle(borderWidth: 1)
-        saveButton.layerStyle(borderWidth: 0)
-    }
     
     @objc private func uploadHeaderPressed() {
         delegate?.uploadHeaderPressed()
@@ -299,10 +303,37 @@ class CreateProjectView: UIView {
         delegate?.savePressed()
     }
     
+    func updateDateButton(date:Date) {
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: date)
+        let numberFormat = NumberFormatter()
+        numberFormat.numberStyle = .ordinal
+        let formattedDay = numberFormat.string(from: NSNumber(value: day))
+        let monthFormat = DateFormatter()
+        monthFormat.dateFormat = "MMM"
+        let month = monthFormat.string(from: date)
+        let timeFormat = DateFormatter()
+        timeFormat.dateFormat = "h:mm a"
+        let time = timeFormat.string(from: date)
+        guard let formatDay = formattedDay else { return }
+        dateButton.setTitle("\(month) \(formatDay), \(time)", for: .normal)
+    }
+    
+    func updateProjectHeader(image: UIImage) {
+        projectHeaderImageView.image = image
+    }
+    
+    func deselectColors() {
+        guard let paths = colorPicker.indexPathsForSelectedItems else { return }
+        paths.forEach {
+            colorPicker.cellForItem(at: $0)?.isSelected = false
+        }
+    }
     
 }
 
 extension CreateProjectView {
+    
     func setColorPickerDataSource(dataSource:UICollectionViewDataSource) {
         colorPicker.dataSource = dataSource
     }
@@ -313,7 +344,16 @@ extension CreateProjectView {
     
     func setProjectHeaderColor(row:Int) {
         projectHeaderImageView.backgroundColor = ColorGuide.colorPickerColors[row]
+        projectHeaderImageView.image = nil
     }
+    
+    func setTextDelegates(viewController: UIViewController) {
+        guard let delegate = viewController as? UITextFieldDelegate,
+              let textViewDelegate = viewController as? UITextViewDelegate else { return }
+        titleTextField.delegate = delegate
+        descriptionTextView.delegate = textViewDelegate
+    }
+    
 }
 
 
@@ -337,3 +377,19 @@ extension UIView {
         self.layer.cornerCurve = .continuous
     }
 }
+
+
+class PlacerholderTextView: UITextView {
+    var placeholder = UILabel()
+    
+    func setPlaceholder() {
+        placeholder.text = "Type Here"
+        self.addSubview(placeholder)
+        placeholder.font = UIFont.systemFont(ofSize: 14)
+        placeholder.sizeToFit()
+        placeholder.frame.origin = CGPoint(x: 10, y: (self.font?.pointSize)! / 2 + 3)
+        placeholder.textColor = UIColor.placeholderText
+        placeholder.isHidden = !self.text.isEmpty
+    }
+}
+

@@ -22,6 +22,8 @@
 		395129AB25C1C15F001DD397 /* CreateProjectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395129AA25C1C15F001DD397 /* CreateProjectViewController.swift */; };
 		395129C025C1C23B001DD397 /* CreateProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395129BF25C1C23B001DD397 /* CreateProjectView.swift */; };
 		395129C825C28FC9001DD397 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395129C725C28FC9001DD397 /* ColorCell.swift */; };
+		395129CD25C3DB74001DD397 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395129CC25C3DB74001DD397 /* DatePickerViewController.swift */; };
+		395129D325C3DBA0001DD397 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395129D225C3DBA0001DD397 /* DatePickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		395129AA25C1C15F001DD397 /* CreateProjectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectViewController.swift; sourceTree = "<group>"; };
 		395129BF25C1C23B001DD397 /* CreateProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectView.swift; sourceTree = "<group>"; };
 		395129C725C28FC9001DD397 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
+		395129CC25C3DB74001DD397 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		395129D225C3DBA0001DD397 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +181,8 @@
 				395129AA25C1C15F001DD397 /* CreateProjectViewController.swift */,
 				395129BF25C1C23B001DD397 /* CreateProjectView.swift */,
 				395129C725C28FC9001DD397 /* ColorCell.swift */,
+				395129CC25C3DB74001DD397 /* DatePickerViewController.swift */,
+				395129D225C3DBA0001DD397 /* DatePickerView.swift */,
 			);
 			path = CreateProjectPage;
 			sourceTree = "<group>";
@@ -318,6 +324,8 @@
 				3951294D25C0F824001DD397 /* AppDelegate.swift in Sources */,
 				3951294F25C0F824001DD397 /* SceneDelegate.swift in Sources */,
 				395129C025C1C23B001DD397 /* CreateProjectView.swift in Sources */,
+				395129CD25C3DB74001DD397 /* DatePickerViewController.swift in Sources */,
+				395129D325C3DBA0001DD397 /* DatePickerView.swift in Sources */,
 				395129A125C13468001DD397 /* CreateProjectCell.swift in Sources */,
 				3951299325C12B8C001DD397 /* ColorGuide.swift in Sources */,
 				3951295725C0F824001DD397 /* DevChallenge.xcdatamodeld in Sources */,
